@@ -1,146 +1,409 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Surprise for Санскрити </title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f8ff;
-            margin: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            flex-direction: column;
-            transition: background-color 1s ease;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> birthday </title>
+  <style>
+    * {
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      font-size: 20px;
+      
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: none;
+    }
+
+    body {
+      background-color: lightsteelblue;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      box-shadow: "0px 4px 4px 0px #00000040,inset 0 0 0 1000px rgba(0,0,0,.5)"
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: 98%;
+      height: 650px;
+      margin-top: 100px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .item {
+      width: 200px;
+      height: 300px;
+      list-style-type: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      background-position: center;
+      background-size: cover;
+      border-radius: 20px;
+      box-shadow: 0 20px 30px rgba(255, 255, 255, 0.3) inset;
+      transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transform: none;
+        border-radius: 0;
+        box-shadow: none;
+        opacity: 1;
+      }
+
+      &:nth-child(3) {
+        left: 50%;
+      }
+
+      &:nth-child(4) {
+        left: calc(50% + 220px);
+      }
+
+      &:nth-child(5) {
+        left: calc(50% + 440px);
+      }
+
+      &:nth-child(6) {
+        left: calc(50% + 660px);
+        opacity: 0;
+      }
+    }
+
+    .content {
+      width: min(30vw, 400px);
+      position: absolute;
+      top: 50%;
+      left: 3rem;
+      transform: translateY(-50%);
+      font: 400 0.85rem helvetica, sans-serif;
+      color: white;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      padding: 10px;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      display: none;
+
+      & .title {
+        font-family: 'arial-black';
+        text-transform: uppercase;
+      }
+
+      & .description {
+        line-height: 1.7;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.8rem;
+      }
+
+      & button {
+        width: fit-content;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: white;
+        border: 2px solid white;
+        border-radius: 0.25rem;
+        padding: 0.75rem;
+        cursor: pointer;
+      }
+    }
+
+    .item:nth-of-type(2) .content {
+      display: block;
+      animation: show 0.75s ease-in-out 0.3s forwards;
+    }
+
+    @keyframes show {
+      0% {
+        filter: blur(5px);
+        transform: translateY(calc(-50% + 75px));
+      }
+
+      100% {
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+
+    .nav {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      user-select: none;
+
+      & .btn {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: rgba(0, 0, 0, 0.7);
+        border: 2px solid rgba(0, 0, 0, 0.6);
+        margin: 0 0.25rem;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.3);
         }
-        .heart {
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            position: relative;
-            transform: rotate(-45deg);
-            animation: popOut 2s ease-in-out forwards;
+      }
+    }
+
+    @media (width > 650px) and (width < 900px) {
+      .content {
+        & .title {
+          font-size: 1rem;
         }
-        .heart::before, .heart::after {
-            content: "";
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
+
+        & .description {
+          font-size: 0.7rem;
         }
-        .heart::before {
-            left: 50px;
+
+        & button {
+          font-size: 0.7rem;
         }
-        .heart::after {
-            top: -50px;
+      }
+
+      .item {
+        width: 160px;
+        height: 270px;
+
+        &:nth-child(3) {
+          left: 50%;
         }
-        .surprise-button, .response-button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: white;
-            background-color: #ff69b4;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            display: none;
+
+        &:nth-child(4) {
+          left: calc(50% + 170px);
         }
-        .response-button {
-            background-color: #ff6347;
+
+        &:nth-child(5) {
+          left: calc(50% + 340px);
         }
-        @keyframes popOut {
-            0% {
-                transform: scale(1) rotate(-45deg);
-            }
-            50% {
-                transform: scale(10) rotate(-45deg);
-            }
-            100% {
-                transform: scale(0) rotate(-45deg);
-                opacity: 0;
-            }
+
+        &:nth-child(6) {
+          left: calc(50% + 510px);
+          opacity: 0;
         }
-        .message {
-            font-size: 2em;
-            color: #ff6347;
-            display: none;
+      }
+    }
+
+    @media (width < 650px) {
+      .content {
+        & .title {
+          font-size: 0.9rem;
         }
-        .snowflake {
-            position: absolute;
-            top: 0;
-            color: white;
-            font-size: 1.5em;
-            pointer-events: none;
-            animation: fall 5s linear infinite;
+
+        & .description {
+          font-size: 0.65rem;
         }
-        @keyframes fall {
-            0% { top: -10%; }
-            100% { top: 100%; }
+
+        & button {
+          font-size: 0.7rem;
         }
-    </style>
+      }
+
+      .item {
+        width: 130px;
+        height: 220px;
+
+        &:nth-child(3) {
+          left: 50%;
+        }
+
+        &:nth-child(4) {
+          left: calc(50% + 140px);
+        }
+
+        &:nth-child(5) {
+          left: calc(50% + 280px);
+        }
+
+        &:nth-child(6) {
+          left: calc(50% + 420px);
+          opacity: 0;
+        }
+      }
+    }
+
+    .audio1 {
+      margin-top: 55px;
+      height: 50px;
+    }
+
+    #audio-player {
+      width: 300px;
+      height: 50px;
+      background-color: floralwhite;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    #audio-player::-webkit-media-controls-play-button {
+      background-color: cornflowerblue;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #audio-player::-webkit-media-controls-timeline {
+      background-color: floralwhite;
+      height: 10px;
+      border-radius: 10px;
+    }
+
+    #audio-player::-webkit-media-controls-volume-slider {
+      background-color: floralwhite; 
+
+      
+      width: 50px;
+      height: 10px;
+      border-radius: 10px;
+    }
+
+    #audio-player1 {
+      width: 300px;
+      height: 50px;
+      background-color: floralwhite;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    #audio-player1::-webkit-media-controls-play-button {
+      background-color: cornflowerblue;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #audio-player1::-webkit-media-controls-timeline {
+      background-color: floralwhite;
+      height: 10px;
+      border-radius: 10px;
+    }
+
+    #audio-player1::-webkit-media-controls-volume-slider {
+      background-color: floralwhite;
+      width: 50px;
+      height: 10px;
+      border-radius: 10px;
+    }
+    .order {
+      margin-top: 10px;
+      font-family: cursive;
+      font-size: 24px;
+      letter-spacing: 2px;
+      word-spacing: 10px;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="heart" id="heart"></div>
-    <button class="surprise-button" id="surprise-button" onclick="showOptions()">Ready for Surprise</button>
-    <button class="response-button" id="yes-button" onclick="showYesMessage()">Yes</button>
-    <button class="response-button" id="no-button" onclick="showNoMessage()">No</button>
-    <div class="message" id="message"></div>
+  <h3 class="order">WELCOME  TO▶️ <br> DK FRUIT <br>
+  COMPANY ➡️</h3>
+  <!--<audio id="audio-player"  class="audio1" src="https://dl.dropbox.com/scl/fi/4r76u96bay2zahztmpgep/Chor-Bazari-Phir-Se-Bhool-Chuk-Maaf-320-Kbps.mp3?rlkey=iexj2aex00vb9b6suh1zyv6p2&st=9z286j59&dl=0 " controls></audio>-->
+  <main>
+    <ul class='slider'>
+      <li class='item' style="background-image: url('https://dl.dropbox.com/scl/fi/pgr7mfizpy5enodrmbizi/card2.png?rlkey=d6ite10k22zag0ard01pwtcym&st=ball2z7y&dl=0')">
+        <div class='content'>
+          <h2 class='title'>Owner info.</h2>
+          <p class='description'>
+           प्रो- दिलीप काहर (DK) 
+           मो- 9926065376
+           पता - पेटलावद , जिला झाबुआ, मध्य प्रदेश
+          </p>
 
-    <script>
-        // Start heart animation
-        document.getElementById('heart').classList.add('animate');
+        </div>
+      </li>
+      <li class='item' style="background-image: url('https://dl.dropbox.com/scl/fi/uk00b1motj6b4nzdh2kok/IMG_20220620_094452_001.jpg?rlkey=azz7h4y9hd8775n0qi1vom6xp&st=lh9igpkp&dl=0')">
+        <div class='content'>
+          <h2 class='title'> Packed with Purity </h2>
+          <p class='description'> जब ताजगी महत्वपूर्ण होती है,वहां DK FRUIT फल पहुंचाता है।</p>
 
-        // Show the button after heart animation
-        setTimeout(() => {
-            document.getElementById('heart').style.display = 'none';
-            document.getElementById('surprise-button').style.display = 'block';
-        }, 1000); // 1000ms matches the duration of the popOut animation
+        </div>
+      </li>
+      <li class='item' style="background-image: url('https://dl.dropbox.com/scl/fi/n6bmms9pypsnev69jodru/dk10.png?rlkey=1sw3grnsxvcnqtwoimrmpg9ql&st=vg6lww0e&dl=0')">
+        <div class='content'>
+          <h2 class='title'>The Taste of Nature </h2>
+          <p class='description'>
+         DK FRUIT — खेतों और फलते-फूलते बाजारों के बीच का एक पुल................
+          </p>
 
-        function showOptions() {
-            document.getElementById('surprise-button').style.display = 'none';
-            document.getElementById('yes-button').style.display = 'block';
-            document.getElementById('no-button').style.display = 'block';
-        }
+        </div>
+      </li>
+      <li class='item' style="background-image: url('https://dl.dropbox.com/scl/fi/kspi18jppi7efbirekr9a/IMG20220605120902.jpg?rlkey=351riwheeglhhbskenkbih50s&st=osuq7n64&dl=0')">
+        <div class='content'>
+          <h2 class='title'> Every Crate Tells a Story </h2>
+          <p class='description'>
+            हर बॉक्स के माध्यम से मुस्कानें प्रदान करना - DK Fruit, आपके थोक फल का साथी। ...............................
+          </p>
 
-        function showYesMessage() {
-            document.getElementById('message').textContent = 'Are ab to reply karde';
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('yes-button').style.display = 'none';
-            document.getElementById('no-button').style.display = 'none';
-            startContinuousSnowfall();
-            document.body.style.backgroundColor = 'grey';
-        }
+        </div>
+      </li>
+      <li class='item' style="background-image: url('https://dl.dropbox.com/scl/fi/vpxqopa9h0xwb2bc8vtd1/IMG20220514074212.jpg?rlkey=dz2nzv8jumzuhn5c5axs50shu&st=h788gvil&dl=0')">
+        <div class='content'>
+          <h2 class='title'> Fresher. Juicier. DK Fruit </h2>
+          <p class='description'>
+            हमारे बंडलों से लेकर आपके काउंटरों तक, DK Fruit आपके फल के खेल को बढ़ावा देता है। ................................................
+           
+          </p>
 
-        function showNoMessage() {
-            document.getElementById('message').textContent = 'I know you choose Yes';
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('yes-button').style.display = 'block';
-            document.getElementById('no-button').style.display = 'none';
-        }
+        </div>
+      </li>
 
-        function startContinuousSnowfall() {
-            setInterval(createSnowflake, 200); // create a new snowflake every 200ms
-        }
+    </ul>
+    <nav class='nav'>
+      <!-- <ion-icon class='btn prev' name="arrow-back-outline"></ion-icon> -->
+      <ion-icon class='btn next' name="arrow-forward-outline"></ion-icon>
+    </nav>
+  </main>
+  
+  <h3 class="order" > THANKYOU </h3>
+<br>
+  <!--<audio id="audio-player1" class="audio2" src=" https://dl.dropbox.com/scl/fi/cne3motvc345r64vm9whh/Ek-Ladki-Ko-Dekha-Toh-Aisa-Laga-LoFi-2.mp3?rlkey=kriijvn4lz0j6sohknlwfkxbt&st=6xtffap5&dl=0" controls></audio>-->
 
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.className = 'snowflake';
-            snowflake.textContent = '❄';
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(snowflake);
 
-            // Remove snowflake after animation
-            setTimeout(() => {
-                snowflake.remove();
-            }, 5000);
-        }
-    </script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- partial -->
+  <script>
+    const slider = document.querySelector('.slider');
+
+    function activate(e) {
+      const items = document.querySelectorAll('.item');
+      e.target.matches('.next') && slider.append(items[0]);
+      e.target.matches('.prev') && slider.append(items[items.ngth - 1]); 
+    }
+    document.addEventListener('click', activate, false);
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Add event listeners to the play button
+    audioPlayer.addEventListener('play', () => {
+      console.log('Audio is playing');
+    });
+
+    audioPlayer.addEventListener('pause', () => {
+      console.log('Audio is paused');
+    });
+
+    // Add event listener to the volume slider
+    audioPlayer.addEventListener('volumechange', () => {
+      console.log('Volume changed');
+    });
+  </script>
 </body>
+
 </html>
+<!--created by VS......-->
